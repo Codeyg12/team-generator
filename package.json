@@ -4,5 +4,25 @@
   },
   "dependencies": {
     "inquirer": "^8.2.4"
-  }
+  },
+  "name": "teamgenerator",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codeyg12/team-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Codeyg12/team-generator/issues"
+  },
+  "homepage": "https://github.com/Codeyg12/team-generator#readme",
+  "description": ""
 }
