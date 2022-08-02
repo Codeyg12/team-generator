@@ -1,0 +1,3 @@
+function generateNewCard(data) {
+    return ``
+}
