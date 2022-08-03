@@ -2,7 +2,7 @@ function generateNewCard(data) {
   const managerCard = (manager) => {
     return ` <div class="card m-2 employeeCard">
         <div class="card-header bg-primary">
-          <h2 class="card-title text-white">${manager.getName()}</h2>
+          <h2 class="card-title text-white text-center">${manager.getName()}</h2>
           <h3 class="card-title text-center text-white">
             <i class="fas fa-mug-hot mr-2 text-white"></i>${manager.getRole()}
           </h3>
@@ -51,7 +51,7 @@ function generateNewCard(data) {
     </div>
   </div>`;
   };
-  const internCard = intern => {
+  const internCard = (intern) => {
     return ` <div class="card m-2 employeeCard">
     <div class="card-header bg-primary">
       <h2 class="card-title text-center text-white">${intern.getName()}</h2>
@@ -71,20 +71,32 @@ function generateNewCard(data) {
         <li class="list-group-item">School: ${intern.getSchool()}</li>
       </ul>
     </div>
-  </div>`
-  }
+  </div>`;
+  };
 
-  const newHtml = []
+  const newHtml = [];
 
-  newHtml.push(data.filter(employee => employee.getRole() === 'Manager').map(manager => managerCard(manager)))
-  newHtml.push(data.filter(employee => employee.getRole() === 'Engineer').map(engineer => managerCard(engineer)))
-  newHtml.push(data.filter(employee => employee.getRole() === 'Intern').map(intern => managerCard(intern)))
+  newHtml.push(
+    data
+      .filter((employee) => employee.getRole() === "Manager")
+      .map((manager) => managerCard(manager))
+  );
+  newHtml.push(
+    data
+      .filter((employee) => employee.getRole() === "Engineer")
+      .map((engineer) => engineerCard(engineer))
+  );
+  newHtml.push(
+    data
+      .filter((employee) => employee.getRole() === "Intern")
+      .map((intern) => internCard(intern))
+  );
 
-  return newHtml.join('')
+  return newHtml.join("");
 }
 
-module.exports = data => {
-    return `<!DOCTYPE html>
+module.exports = (data) => {
+  return `<!DOCTYPE html>
     <html lang="en">
       <head>
         <meta charset="UTF-8" />
@@ -117,5 +129,5 @@ module.exports = data => {
         </div>
       </body>
     </html>
-    `
-}
+    `;
+};

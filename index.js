@@ -2,7 +2,7 @@ const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const path = require("path");
-const OUTPUT_DIR = path.resolve(__dirname, "output");
+const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 const inquirer = require("inquirer");
 const fs = require("fs");
@@ -25,6 +25,14 @@ const managerQuestions = [
     type: "input",
     name: "managerEmail",
     message: "What is the team managers email?",
+    validate: function (managerEmail) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(managerEmail)
+
+        if (!valid) {
+            console.log('\nPlease enter a valid email')
+            return false
+        }
+    }
   },
   {
     type: "number",
@@ -54,6 +62,14 @@ const engineerQuestions = [
     type: "input",
     name: "engineerEmail",
     message: "What is the engineers email?",
+    validate: function (engineerEmail) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmail)
+
+        if (!valid) {
+            console.log('\nPlease enter a valid email')
+            return false
+        }
+    }
   },
   {
     type: "input",
@@ -83,6 +99,14 @@ const internQuestions = [
     type: "input",
     name: "internEmail",
     message: "What is the interns email?",
+    validate: function (internEmail) {
+        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmail)
+
+        if (!valid) {
+            console.log('\nPlease enter a valid email')
+            return false
+        }
+    }
   },
   {
     type: "number",
@@ -167,8 +191,14 @@ function addIntern() {
 }
 
 function finishHtml() {
-    console.log('Team page created')
-    fs.writeFileSync(outputPath, generateNewCard(teamArray), 'UTF-8')
+  
+  fs.writeFile(outputPath, generateNewCard(teamArray), function (err) {
+    if (err) {
+        return console.log(err)
+    } else {
+        console.log("Team page created");
+    }
+  });
 }
 
 startBuilding();
