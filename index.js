@@ -115,7 +115,7 @@ function startBuilding() {
         break;
 
       default:
-        httmlllBuilder();
+        finishHtml();
     }
   });
 }
@@ -138,13 +138,13 @@ function addEngineer() {
         break;
 
       default:
-        httmlllBuilder();
+        finishHtml();
     }
   });
 }
 
 function addIntern() {
-  inquirer(internQuestions).then((data) => {
+  inquirer.prompt(internQuestions).then((data) => {
     const intern = new Intern(
       data.internName,
       data.internId,
@@ -161,9 +161,14 @@ function addIntern() {
         break;
 
       default:
-        httmlllBuilder();
+        finishHtml();
     }
   });
+}
+
+function finishHtml() {
+    console.log('Team page created')
+    fs.writeFileSync(outputPath, generateNewCard(teamArray), 'UTF-8')
 }
 
 startBuilding();

@@ -11,8 +11,10 @@ describe('Manager', () => {
 
     it('Should return as manager', () => {
         const test = 'Manager'
-        const manager = new Manager('Dylan', 13, 'sample@example.com')
+        const testOfficeNumber = 719
+        const manager = new Manager('Dylan', 13, 'sample@example.com', testOfficeNumber)
 
+        expect(manager.getOfficeNumber()).toBe(testOfficeNumber)
         expect(manager.getRole()).toBe(test)
     })
 })
