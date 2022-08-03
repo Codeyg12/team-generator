@@ -1,16 +1,26 @@
 const inquirer = require('inquirer')
-const fs = requirez('fs')
+const fs = require('fs')
 const generateNewCard = require('./src/template')
 
 const questions = [
     {
-        type: '',
-        name: '',
-        message: ''
+        type: 'input',
+        name: 'managerName',
+        message: 'What is the team managers name?'
     },
     {
-        type: '',
-        name: '',
-        message: ''
+        type: 'number',
+        name: 'managerId',
+        message: 'What is the team managers id'
+    },
+    {
+        type: 'input',
+        name: 'managerEmail',
+        message: 'What is the team managers email?'
+    },
+    {
+        type: 'number',
+        name: 'officeNumber',
+        message: 'What is the office number?'
     }
 ]
