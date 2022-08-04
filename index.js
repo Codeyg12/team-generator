@@ -1,15 +1,19 @@
+//Brings in all classes
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
+//sets up the path so in my fs it will use variables
 const path = require("path");
 const OUTPUT_DIR = path.resolve(__dirname, "dist");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
-const inquirer = require("inquirer");
 const fs = require("fs");
+const inquirer = require("inquirer");
 const generateNewCard = require("./src/template");
 
+//This will hold all user inputted team members
 let teamArray = [];
 
+//inital questions relating to the manager
 const managerQuestions = [
   {
     type: "input",
@@ -25,13 +29,12 @@ const managerQuestions = [
     type: "input",
     name: "managerEmail",
     message: "What is the team managers email?",
-    validate: function (managerEmail) {
-        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(managerEmail)
-
-        if (!valid) {
-            console.log('\nPlease enter a valid email')
-            return false
+    validate: (answer) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if(!emailRegex.test(answer)) {
+            return "Please provide a valid email address"
         }
+        return true
     }
   },
   {
@@ -47,6 +50,7 @@ const managerQuestions = [
   },
 ];
 
+//questions if engineer is selected
 const engineerQuestions = [
   {
     type: "input",
@@ -62,13 +66,12 @@ const engineerQuestions = [
     type: "input",
     name: "engineerEmail",
     message: "What is the engineers email?",
-    validate: function (engineerEmail) {
-        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(engineerEmail)
-
-        if (!valid) {
-            console.log('\nPlease enter a valid email')
-            return false
+    validate: (answer) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if(!emailRegex.test(answer)) {
+            return "Please provide a valid email address"
         }
+        return true
     }
   },
   {
@@ -84,6 +87,7 @@ const engineerQuestions = [
   },
 ];
 
+//questions if intern is selected
 const internQuestions = [
   {
     type: "input",
@@ -99,13 +103,12 @@ const internQuestions = [
     type: "input",
     name: "internEmail",
     message: "What is the interns email?",
-    validate: function (internEmail) {
-        valid = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(internEmail)
-
-        if (!valid) {
-            console.log('\nPlease enter a valid email')
-            return false
+    validate: (answer) => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+        if(!emailRegex.test(answer)) {
+            return "Please provide a valid email address"
         }
+        return true
     }
   },
   {
@@ -121,8 +124,10 @@ const internQuestions = [
   },
 ];
 
+//First set off questions starting with the manager
 function startBuilding() {
   inquirer.prompt(managerQuestions).then((data) => {
+    //Takes user answers and puts them into new object and pushes to the array
     const manager = new Manager(
       data.managerName,
       data.managerId,
@@ -130,6 +135,7 @@ function startBuilding() {
       data.officeNumber
     );
     teamArray.push(manager);
+    //Switch case for question regarding adding another employee
     switch (data.nextEmployee) {
       case "Engineer":
         addEngineer();
@@ -138,12 +144,14 @@ function startBuilding() {
         addIntern();
         break;
 
+        //If no more memebers are added defaults to writing the file
       default:
         finishHtml();
     }
   });
 }
 
+//These questions start if engineer is added
 function addEngineer() {
   inquirer.prompt(engineerQuestions).then((data) => {
     const engineer = new Engineer(
@@ -167,6 +175,7 @@ function addEngineer() {
   });
 }
 
+//These questions start if intern is added
 function addIntern() {
   inquirer.prompt(internQuestions).then((data) => {
     const intern = new Intern(
@@ -191,7 +200,7 @@ function addIntern() {
 }
 
 function finishHtml() {
-  
+  //Uses all answers and previously provided variables to generate a new page
   fs.writeFile(outputPath, generateNewCard(teamArray), function (err) {
     if (err) {
         return console.log(err)
@@ -201,4 +210,5 @@ function finishHtml() {
   });
 }
 
+//Initalizes process
 startBuilding();

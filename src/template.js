@@ -1,4 +1,5 @@
 function generateNewCard(data) {
+ //Takes the input from the manager and uses template literal to generate the section of html
   const managerCard = (manager) => {
     return ` <div class="card m-2 employeeCard">
         <div class="card-header bg-primary">
@@ -21,6 +22,7 @@ function generateNewCard(data) {
         </div>
       </div>`;
   };
+  //Takes the input from the engineer and uses template literal to generate the section of html
   const engineerCard = (engineer) => {
     return `          <div class="card m-2 employeeCard">
     <div class="card-header bg-primary">
@@ -51,6 +53,7 @@ function generateNewCard(data) {
     </div>
   </div>`;
   };
+  //Takes the input from the intern and uses template literal to generate the section of html
   const internCard = (intern) => {
     return ` <div class="card m-2 employeeCard">
     <div class="card-header bg-primary">
@@ -74,8 +77,10 @@ function generateNewCard(data) {
   </div>`;
   };
 
+  //Empty array to push all new cards into
   const newHtml = [];
 
+  //pushs all new generated cards based on their names
   newHtml.push(
     data
       .filter((employee) => employee.getRole() === "Manager")
@@ -92,9 +97,11 @@ function generateNewCard(data) {
       .map((intern) => internCard(intern))
   );
 
+  //joins all pushs together without unneeded spaces
   return newHtml.join("");
 }
 
+//This will hold all the information that wont be changed
 module.exports = (data) => {
   return `<!DOCTYPE html>
     <html lang="en">
