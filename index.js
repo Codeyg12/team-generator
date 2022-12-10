@@ -24,6 +24,22 @@ const managerQuestions = [
     type: "number",
     name: "managerId",
     message: "What is the team managers id",
+    validate: (answer) => {
+      const numberRegex = /\d/g
+      //KINDA WORKS BUT NAN WONT LEAVE
+      if (!numberRegex.test(answer)) {
+        return "Please enter a number"
+      }
+      return true
+    }
+    //HAVE TO CHANGE TYPE TO INPUT
+    // validate: (answer) => {
+    //   if (isNaN(answer)) {
+    //     return "Please enter a number"
+    //   }
+    //   return true
+    //   }
+    // }
   },
   {
     type: "input",
